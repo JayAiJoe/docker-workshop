@@ -90,6 +90,28 @@ Note: When running locally, update the `BACKEND_URL` in `frontend/app.py` to `ht
 - **Frontend Port**: 8501
 - **Inter-container Communication**: Docker internal networking
 
+## 🧪 Testing
+
+The backend includes unit tests that automatically run during the Docker build process. If any tests fail, the Docker build will fail, preventing broken containers from being created.
+
+**Backend Tests** ([backend/test_main.py](backend/test_main.py)):
+- API endpoint validation (root, greeting, random-number)
+- Response structure verification
+- Data type and range checks
+
+**When do tests run?**
+- During `docker compose up --build` - you'll see test output in the build logs
+- During `docker compose build` - tests run as part of the image build
+- If tests fail, the build stops and the container won't be created
+
+**Run tests locally without Docker:**
+```bash
+cd backend
+pytest test_main.py -v
+```
+
+**Note:** Frontend has no tests in this workshop - students focus on containerization, not frontend testing.
+
 ## 📝 API Endpoints
 
 ### GET /api/greeting
